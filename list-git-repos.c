@@ -3,7 +3,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fts.h>
-#include <strings.h>
+#include <string.h>
 
 int compare (const FTSENT**, const FTSENT**);
 
