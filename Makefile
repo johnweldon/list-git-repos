@@ -1,10 +1,23 @@
+.DEFAULT_GOAL := help
 
-list-git-repos: list-git-repos.o
+TARGET = list-git-repos
+
+SRCS = $(wildcard *.c)
+OBJS = $(SRCS:.c=.o)
+
+$(TARGET): $(OBJS)
+
+.PHONY: all
+all: $(TARGET) ## Build target
 
 .PHONY: clean
-clean:
-	-rm list-git-repos *.o
+clean: ## Clean artifacts
+	-rm $(TARGET) $(OBJS)
 
 .PHONY: run
-run: list-git-repos
-	./$< ..
+run: $(TARGET) ## Run target
+	./$<
+
+.PHONY: help
+help: ## Display target help
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
